@@ -18,7 +18,7 @@ AND    is_current  = TRUE;
 
 -- Step B: Insert Bob's new record with updated role
 INSERT INTO employee_dim (employee_id, full_name, role, manager_id, start_date, end_date, is_current)
-VALUES (2, 'Bob', 'Senior Manager', 1, '2025-06-01', NULL, TRUE);
+VALUES (2, 'Bob', 'Senior Manager', 1, '2025-06-01', NULL, 1);
 
 --
 -- Org chart after Change 1:
@@ -44,7 +44,7 @@ AND    is_current  = TRUE;
 
 -- Step B: Insert Carol's new record with updated manager
 INSERT INTO employee_dim (employee_id, full_name, role, manager_id, start_date, end_date, is_current)
-VALUES (3, 'Carol', 'Analyst', 1, '2025-09-01', NULL, TRUE);
+VALUES (3, 'Carol', 'Analyst', 1, '2025-09-01', NULL, 1);
 
 --
 -- Org chart after Change 2:
