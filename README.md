@@ -1,6 +1,6 @@
 # Org Hierarchy History Tracker
 
-> **"This project models an organisational hierarchy and tracks historical changes in employee roles and reporting structures using a slowly changing dimension approach."**
+> **"SQL-based data modelling project implementing Slowly Changing Dimension (Type 2) to track organisational hierarchy changes over time."**
 
 ---
 
