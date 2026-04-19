@@ -105,5 +105,7 @@ AND '2025-03-01' BETWEEN start_date AND COALESCE(end_date, '9999-12-31');
 - **COALESCE for open-ended dates** — `NULL` end_date means "still current"; treated as far-future date in range queries
 
 ---
-
+## Further reading
+- [Architecture Decision Record](ADR.md) — design decisions and trade-offs
+- [Known Limitations](LIMITATIONS.md) — what this project doesn't handle, and why
 *Built as a portfolio project demonstrating dimensional modelling and historical data tracking.*
