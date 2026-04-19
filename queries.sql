@@ -6,7 +6,14 @@
 
 -- -------------------------------------------------------------
 -- QUERY 1: Current org structure
--- Returns one row per employee — their latest active record
+--
+-- Business question: "Who works here today, what is their role,
+-- and who do they report to?"
+--
+-- This is the standard current-state snapshot a manager or HR
+-- system would request. The double join on is_current = TRUE
+-- ensures we show the manager's current name and role, not a
+-- historical version of them.
 -- -------------------------------------------------------------
 
 SELECT
@@ -25,7 +32,13 @@ ORDER BY e.manager_id NULLS FIRST, e.employee_id;
 
 -- -------------------------------------------------------------
 -- QUERY 2: Full history for a single employee
--- Shows every version of Carol's record across all time
+--
+-- Business question: "Show me every role and reporting line
+-- Carol has ever had, in chronological order."
+--
+-- Useful for HR audits, performance reviews, and compliance.
+-- COALESCE converts NULL end_date to the string 'present' so
+-- the output is readable without knowing the SCD convention.
 -- -------------------------------------------------------------
 
 SELECT
@@ -43,8 +56,16 @@ ORDER BY start_date;
 
 -- -------------------------------------------------------------
 -- QUERY 3: Point-in-time lookup
--- "Who did Carol report to on 1 March 2025?"
--- Handles open-ended records with COALESCE
+--
+-- Business question: "Who did Carol report to on 1 March 2025,
+-- even if her manager has since changed?"
+--
+-- This is the core value of SCD Type 2. A Type 1 system (which
+-- overwrites rows) could not answer this question. The date is
+-- applied to both the employee and manager join to ensure both
+-- sides reflect the state at that exact point in time.
+-- COALESCE treats NULL end_date as '9999-12-31' so open-ended
+-- (still-current) records are correctly included in the range.
 -- -------------------------------------------------------------
 
 SELECT
@@ -65,8 +86,15 @@ AND    '2025-03-01' BETWEEN e.start_date
 
 
 -- -------------------------------------------------------------
--- QUERY 4: All changes that happened on or after a given date
--- Useful for audit trails and change tracking
+-- QUERY 4: All changes on or after a given date
+--
+-- Business question: "What organisational changes have happened
+-- since June 2025? I need an audit trail."
+--
+-- start_date marks when a new version became active, so
+-- filtering on start_date >= a threshold returns every change
+-- event from that date forward. Useful for change management
+-- reporting and compliance audits.
 -- -------------------------------------------------------------
 
 SELECT
@@ -83,8 +111,15 @@ ORDER BY start_date, employee_id;
 
 
 -- -------------------------------------------------------------
--- QUERY 5: How many versions does each employee have?
--- Reveals who has changed the most
+-- QUERY 5: Version count per employee
+--
+-- Business question: "Which employees have had the most role or
+-- reporting line changes? Who is most active in the org?"
+--
+-- Each row in employee_dim represents one version of an employee
+-- record. Counting rows per employee_id reveals how many times
+-- that person's data has changed. High version counts may
+-- indicate frequent promotions, restructures, or data corrections.
 -- -------------------------------------------------------------
 
 SELECT

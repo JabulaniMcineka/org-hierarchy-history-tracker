@@ -108,4 +108,13 @@ AND '2025-03-01' BETWEEN start_date AND COALESCE(end_date, '9999-12-31');
 ## Further reading
 - [Architecture Decision Record](ADR.md) — design decisions and trade-offs
 - [Known Limitations](LIMITATIONS.md) — what this project doesn't handle, and why
+
+## Planned improvements
+
+| # | Issue | Status |
+|---|-------|--------|
+| 1 | Add surrogate key column and fact table example | `backlog` |
+| 2 | Wrap SCD Type 2 updates in a Python transaction | `backlog` |
+| 3 | Add recursive CTE for full hierarchy traversal | `backlog` |
+| 4 | Handle same-day changes with change_sequence column | `backlog` |
 *Built as a portfolio project demonstrating dimensional modelling and historical data tracking.*
