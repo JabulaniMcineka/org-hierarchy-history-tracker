@@ -42,7 +42,9 @@ org-hierarchy-tracker/
 ├── seed_data.sql    — initial org structure
 ├── changes.sql      — SCD Type 2 change simulations
 ├── queries.sql      — analytical queries
+├── fact table.sql   — resolving issue #1
 └── README.md        — this file
+
 ```
 
 ---
